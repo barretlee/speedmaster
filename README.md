@@ -1,6 +1,6 @@
 # SpeedMaster Chrome Extension
 
-[中文](./README.zh-CN.md).
+[中文版](./README.zh-CN.md)
 
 SpeedMaster delivers a unified, accessible controller for any audio or video element in the browser. The project started as a Tampermonkey userscript and has evolved into a modular Chrome extension with localisation, theming, and a streamlined build pipeline ready for publishing.
 
