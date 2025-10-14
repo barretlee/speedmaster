@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "SpeedMaster - Universal Media Playback Controller",
+  "version": "3.0.0",
+  "description": "Control playback speed for audio and video elements on any page. Includes ad skipping, exclusion list, and an accessible floating widget.",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/main.js"],
+      "css": ["content/controller.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content/app.js",
+        "content/controller.js",
+        "content/media.js",
+        "content/constants.js",
+        "shared/storage.js",
+        "shared/domains.js",
+        "shared/i18n.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "options_page": "options/index.html",
+  "action": {
+    "default_title": "SpeedMaster",
+    "default_popup": "popup/index.html"
+  }
+}

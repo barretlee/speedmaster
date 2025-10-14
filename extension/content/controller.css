@@ -1,0 +1,207 @@
+#speed-controller {
+  --sm-surface: rgba(25, 25, 25, 0.78);
+  --sm-surface-hover: rgba(35, 35, 35, 0.9);
+  --sm-border: rgba(255, 255, 255, 0.15);
+  --sm-highlight: rgba(255, 255, 255, 0.08);
+  --sm-highlight-hover: rgba(255, 255, 255, 0.18);
+  --sm-text: #fff;
+  --sm-subtle: #ccc;
+  --sm-focus: #00b4ff;
+
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: var(--sm-surface);
+  color: var(--sm-text);
+  padding: 6px 18px 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  z-index: 999999;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  min-width: 200px;
+  cursor: default;
+}
+
+#speed-controller[data-theme='light'] {
+  --sm-surface: rgba(250, 250, 250, 0.92);
+  --sm-surface-hover: rgba(255, 255, 255, 0.98);
+  --sm-border: rgba(0, 0, 0, 0.08);
+  --sm-highlight: rgba(0, 0, 0, 0.04);
+  --sm-highlight-hover: rgba(0, 0, 0, 0.08);
+  --sm-text: #1e1e1e;
+  --sm-subtle: #4a4a4a;
+  --sm-focus: #007bff;
+  box-shadow: 0 10px 30px rgba(40, 40, 40, 0.18);
+}
+
+#speed-controller.dragging {
+  opacity: 0.9;
+  cursor: grabbing;
+}
+
+#speed-controller:hover {
+  background: var(--sm-surface-hover);
+  transform: translateY(-2px);
+}
+
+#speed-controller:focus {
+  outline: 2px solid var(--sm-focus);
+}
+
+#drag-handle {
+  position: absolute;
+  top: 4px;
+  left: 10px;
+  font-size: 16px;
+  color: var(--sm-subtle);
+  cursor: grab;
+  user-select: none;
+}
+
+#speed-controller button,
+#speed-controller select {
+  background: var(--sm-highlight);
+  color: var(--sm-text);
+  border: 1px solid var(--sm-border);
+  border-radius: 10px;
+  padding: 5px 9px;
+  margin: 3px;
+  cursor: pointer;
+  line-height: 1.2;
+  font-size: 13px;
+}
+
+#speed-controller button:hover,
+#speed-controller select:hover {
+  background: var(--sm-highlight-hover);
+  transform: translateY(-1px);
+}
+
+#speed-controller button:disabled,
+#speed-controller select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#speed-controller select {
+  color: inherit;
+  height: 28px;
+}
+
+#speed-controller button:focus,
+#speed-controller select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+#close-wrapper {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+#close-btn,
+#minimize-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 14px;
+  color: var(--sm-subtle);
+  background: var(--sm-highlight);
+  border: 1px solid var(--sm-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+#close-btn:hover,
+#minimize-btn:hover {
+  background: var(--sm-highlight-hover);
+  color: var(--sm-text);
+  transform: scale(1.08);
+}
+
+#exclude-tip {
+  display: none;
+  position: absolute;
+  top: -28px;
+  right: -4px;
+  background: var(--sm-surface);
+  border: 1px solid var(--sm-border);
+  color: var(--sm-text);
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+#close-wrapper:hover #exclude-tip {
+  display: block;
+}
+
+#exclude-tip label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+#exclude-checkbox {
+  accent-color: var(--sm-focus);
+  transform: scale(1.1);
+}
+
+#control-row {
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+#speed-display {
+  margin: 0 8px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#minimized-bar {
+  position: fixed;
+  right: -4px;
+  bottom: 24px;
+  width: 18px;
+  height: 48px;
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 12px 0 0 12px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease;
+  z-index: 999999;
+  font-size: 12px;
+  text-align: center;
+  padding-left: 6px;
+}
+
+#minimized-bar[data-theme='light'] {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1f1f1f;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+#minimized-bar:hover {
+  transform: translateX(-4px);
+}
