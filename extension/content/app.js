@@ -91,13 +91,15 @@ const buildState = () => {
   };
 };
 
-const publishState = () => {
+const publishState = (force = false) => {
   const state = buildState();
   const signature = JSON.stringify(state);
-  if (signature !== lastStateSignature) {
+  const payload = { namespace: 'speedmaster', type: 'state-update', state };
+
+  if (force || signature !== lastStateSignature) {
     lastStateSignature = signature;
     try {
-      chrome.runtime.sendMessage({ namespace: 'speedmaster', type: 'state-update', state }).catch(() => {});
+      chrome.runtime.sendMessage(payload).catch(() => {});
     } catch (error) {
       console.debug('[SpeedMaster] Unable to publish state update:', error);
     }
@@ -118,7 +120,8 @@ const syncController = () => {
         media: currentMedia,
         settings,
         onClose: handleOverlayClose,
-        onExcludeDomain: handleExcludeDomain
+        onExcludeDomain: handleExcludeDomain,
+        onRateChange: () => publishState(true)
       });
     } else {
       controllerHandle.attachMedia(currentMedia, { preserveRate: true });
@@ -160,7 +163,7 @@ const setPlaybackRate = (value) => {
   if (!currentMedia && !findMediaElement()) return false;
   currentMedia.playbackRate = clampSpeed(value, settings.maxSpeed);
   controllerHandle?.attachMedia(currentMedia);
-  publishState();
+  publishState(true);
   return true;
 };
 
@@ -169,7 +172,7 @@ const adjustPlaybackRate = (delta) => {
   const next = clampSpeed(currentMedia.playbackRate + delta, settings.maxSpeed);
   currentMedia.playbackRate = Number(next.toFixed(2));
   controllerHandle?.attachMedia(currentMedia);
-  publishState();
+  publishState(true);
   return true;
 };
 
@@ -180,7 +183,7 @@ const toggleSkip = () => {
   const shouldSkip = Math.abs(currentMedia.playbackRate - skipTarget) > 0.001;
   currentMedia.playbackRate = shouldSkip ? skipTarget : 1;
   controllerHandle?.attachMedia(currentMedia, { preserveRate: true });
-  publishState();
+  publishState(true);
   return true;
 };
 

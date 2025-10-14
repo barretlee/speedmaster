@@ -1,0 +1,49 @@
+name: Build Extension Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'extension/**'
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Read manifest version
+        id: read_version
+        run: |
+          VERSION=$(jq -r '.version' extension/manifest.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Detected version $VERSION"
+
+      - name: Create extension archive
+        run: |
+          ARCHIVE_NAME="speedmaster-extension-v${VERSION}.zip"
+          zip -r "$ARCHIVE_NAME" extension
+          echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
+
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: speedmaster-extension-v${{ env.VERSION }}
+          release_name: speedmaster-extension-v${{ env.VERSION }}
+          draft: false
+          prerelease: false
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ env.ARCHIVE_NAME }}
+          asset_name: ${{ env.ARCHIVE_NAME }}
+          asset_content_type: application/zip

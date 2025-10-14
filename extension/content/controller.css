@@ -1,39 +1,43 @@
 #speed-controller {
-  --sm-surface: rgba(25, 25, 25, 0.78);
-  --sm-surface-hover: rgba(35, 35, 35, 0.9);
-  --sm-border: rgba(255, 255, 255, 0.15);
+  --sm-surface: rgba(20, 23, 35, 0.75);
+  --sm-surface-hover: rgba(26, 29, 45, 0.88);
+  --sm-border: rgba(255, 255, 255, 0.14);
   --sm-highlight: rgba(255, 255, 255, 0.08);
-  --sm-highlight-hover: rgba(255, 255, 255, 0.18);
-  --sm-text: #fff;
-  --sm-subtle: #ccc;
-  --sm-focus: #00b4ff;
+  --sm-highlight-hover: rgba(255, 255, 255, 0.15);
+  --sm-text: #f7f9ff;
+  --sm-subtle: #aeb6d3;
+  --sm-accent: #4d8dff;
+  --sm-accent-hover: #6ea0ff;
 
   position: fixed;
-  right: 24px;
-  bottom: 24px;
-  background: var(--sm-surface);
+  right: 20px;
+  bottom: 20px;
+  background: linear-gradient(145deg, rgba(27, 30, 44, 0.85), rgba(17, 19, 32, 0.78));
+  border: 1px solid var(--sm-border);
+  border-radius: 18px;
+  padding: 16px 18px 20px;
+  min-width: 210px;
   color: var(--sm-text);
-  padding: 6px 18px 14px;
-  border-radius: 16px;
-  font-size: 14px;
+  font-size: 13px;
   z-index: 999999;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(10px);
-  transition: all 0.25s ease;
-  min-width: 200px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 22px 45px rgba(10, 12, 20, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
   cursor: default;
 }
 
 #speed-controller[data-theme='light'] {
-  --sm-surface: rgba(250, 250, 250, 0.92);
-  --sm-surface-hover: rgba(255, 255, 255, 0.98);
-  --sm-border: rgba(0, 0, 0, 0.08);
-  --sm-highlight: rgba(0, 0, 0, 0.04);
-  --sm-highlight-hover: rgba(0, 0, 0, 0.08);
-  --sm-text: #1e1e1e;
-  --sm-subtle: #4a4a4a;
-  --sm-focus: #007bff;
-  box-shadow: 0 10px 30px rgba(40, 40, 40, 0.18);
+  --sm-surface: rgba(255, 255, 255, 0.92);
+  --sm-surface-hover: rgba(250, 252, 255, 0.98);
+  --sm-border: rgba(35, 48, 90, 0.12);
+  --sm-highlight: rgba(235, 240, 255, 0.7);
+  --sm-highlight-hover: rgba(222, 232, 255, 0.95);
+  --sm-text: #1d2133;
+  --sm-subtle: #67708f;
+  --sm-accent: #2f6bff;
+  --sm-accent-hover: #4b7fff;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(240, 244, 255, 0.88));
+  box-shadow: 0 20px 36px rgba(25, 45, 95, 0.18);
 }
 
 #speed-controller.dragging {
@@ -65,36 +69,43 @@
   background: var(--sm-highlight);
   color: var(--sm-text);
   border: 1px solid var(--sm-border);
-  border-radius: 10px;
-  padding: 5px 9px;
-  margin: 3px;
+  border-radius: 12px;
+  padding: 6px 11px;
+  margin: 4px;
   cursor: pointer;
   line-height: 1.2;
   font-size: 13px;
+  transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
 }
 
 #speed-controller button:hover,
 #speed-controller select:hover {
   background: var(--sm-highlight-hover);
+  border-color: rgba(255, 255, 255, 0.22);
   transform: translateY(-1px);
+}
+
+#speed-controller button:active,
+#speed-controller select:active {
+  transform: translateY(0);
 }
 
 #speed-controller button:disabled,
 #speed-controller select:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
   transform: none;
 }
 
 #speed-controller select {
   color: inherit;
-  height: 28px;
+  height: 30px;
 }
 
 #speed-controller button:focus,
 #speed-controller select:focus {
   outline: none;
-  box-shadow: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
 }
 
 #close-wrapper {
@@ -165,14 +176,20 @@
 #control-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-top: 18px;
   margin-bottom: 8px;
 }
 
 #speed-display {
-  margin: 0 8px;
-  font-weight: bold;
-  font-size: 15px;
+  margin: 0 12px;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+
+#speed-display.disabled {
+  opacity: 0.5;
 }
 
 #minimized-bar {

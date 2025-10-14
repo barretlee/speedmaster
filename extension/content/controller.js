@@ -34,7 +34,7 @@ const addListener = (list, target, type, handler, options) => {
   list.push(() => target.removeEventListener(type, handler, options));
 };
 
-export function createController({ media, onClose, onExcludeDomain, settings = {} }) {
+export function createController({ media, onClose, onExcludeDomain, onRateChange, settings = {} }) {
   if (!media) throw new Error('Media element is required to create controller');
 
   let currentMedia = media;
@@ -196,6 +196,7 @@ export function createController({ media, onClose, onExcludeDomain, settings = {
     if (!currentMedia) return;
     const rate = Number(currentMedia.playbackRate.toFixed(2));
     speedDisplay.textContent = `${rate.toFixed(2)}x`;
+    speedDisplay.classList.toggle('disabled', !currentMedia);
 
     const matched = speedOptions.find((option) => Math.abs(option - rate) < 0.001);
     speedSelect.value = matched ? String(matched) : '1';
@@ -204,6 +205,11 @@ export function createController({ media, onClose, onExcludeDomain, settings = {
     skipping = Math.abs(currentMedia.playbackRate - skipTarget) < 0.001 && skipTarget > 1;
     skipBtn.textContent = skipping ? t('controller.button.boostActive') : `${t('controller.button.boost')} 🚀`;
     skipBtn.disabled = skipTarget <= 1;
+  };
+
+  const notifyRateChange = () => {
+    if (!currentMedia) return;
+    onRateChange?.(currentMedia.playbackRate);
   };
 
   const attachMedia = (mediaEl, options = {}) => {
@@ -219,6 +225,7 @@ export function createController({ media, onClose, onExcludeDomain, settings = {
       currentMedia.playbackRate = MIN_SPEED;
     }
     updateDisplay();
+    notifyRateChange();
   };
 
   const reset = () => {
@@ -226,6 +233,7 @@ export function createController({ media, onClose, onExcludeDomain, settings = {
     currentMedia.playbackRate = 1;
     skipping = false;
     updateDisplay();
+    notifyRateChange();
   };
 
   const adjustSpeed = (delta) => {
@@ -234,6 +242,7 @@ export function createController({ media, onClose, onExcludeDomain, settings = {
     currentMedia.playbackRate = Number(next.toFixed(2));
     skipping = false;
     updateDisplay();
+    notifyRateChange();
   };
 
   const startDrag = (x, y) => {
@@ -315,6 +324,7 @@ export function createController({ media, onClose, onExcludeDomain, settings = {
       currentMedia.playbackRate = clampSpeed(value, config.maxSpeed);
       skipping = false;
       updateDisplay();
+      notifyRateChange();
     }
   });
 
@@ -325,6 +335,7 @@ export function createController({ media, onClose, onExcludeDomain, settings = {
     skipping = !skipping;
     currentMedia.playbackRate = skipping ? skipTarget : 1;
     updateDisplay();
+    notifyRateChange();
   });
 
   addListener(cleanupListeners, closeBtn, 'click', () => {
