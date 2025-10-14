@@ -181,14 +181,6 @@ const updateOverlayButton = (state) => {
   const overlayActive = Boolean(state.overlayActive);
   const domainBlocked = Boolean(state.isDomainExcluded);
 
-  if (overlayDisabled) {
-    overlayBtnLabel.textContent = t('popup.overlay.disabled');
-    openOverlayBtn.setAttribute('title', t('popup.overlay.disabled.title'));
-    openOverlayBtn.setAttribute('aria-label', t('popup.overlay.disabled.title'));
-    openOverlayBtn.disabled = true;
-    return;
-  }
-
   if (domainBlocked) {
     overlayBtnLabel.textContent = t('popup.overlay.blocked');
     openOverlayBtn.setAttribute('title', t('popup.overlay.blocked.title'));
@@ -198,8 +190,9 @@ const updateOverlayButton = (state) => {
   }
 
   overlayBtnLabel.textContent = overlayActive ? t('popup.overlay.hide') : t('popup.overlay.show');
-  openOverlayBtn.setAttribute('title', overlayActive ? t('popup.overlay.close.title') : t('popup.overlay.open.title'));
-  openOverlayBtn.setAttribute('aria-label', overlayActive ? t('popup.overlay.close.title') : t('popup.overlay.open.title'));
+  const titleKey = overlayActive ? 'popup.overlay.close.title' : 'popup.overlay.open.title';
+  openOverlayBtn.setAttribute('title', t(titleKey));
+  openOverlayBtn.setAttribute('aria-label', t(titleKey));
   openOverlayBtn.disabled = false;
   openOverlayBtn.dataset.mode = overlayActive ? 'on' : 'off';
 };
@@ -347,6 +340,9 @@ openOverlayBtn.addEventListener('click', async () => {
   const nextEnabled = !currentState.overlayActive;
   try {
     await handleCommand('speedmaster:set-overlay', { enabled: nextEnabled });
+    if (nextEnabled && currentSettings?.displayMode === 'popup') {
+      currentSettings = await updateSettings({ displayMode: 'both' });
+    }
     if (nextEnabled) {
       setStatus(t('message.success.overlayEnabled'), 'success');
     } else {

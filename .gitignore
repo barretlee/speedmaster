@@ -3,6 +3,7 @@ dist
 dist/
 .DS_Store
 *.log
+*.zip
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
