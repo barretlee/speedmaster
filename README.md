@@ -1,5 +1,7 @@
 # SpeedMaster Chrome Extension
 
+[中文](./README.zh-CN.md).
+
 SpeedMaster delivers a unified, accessible controller for any audio or video element in the browser. The project started as a Tampermonkey userscript and has evolved into a modular Chrome extension with localisation, theming, and a streamlined build pipeline ready for publishing.
 
 ## Highlights
@@ -13,7 +15,7 @@ SpeedMaster delivers a unified, accessible controller for any audio or video ele
 ## Installation (Development Build)
 1. Clone the repository.
    ```bash
-   git clone https://github.com/your-username/speedmaster.git
+   git clone https://github.com/barretlee/speedmaster.git
    cd speedmaster
    ```
 2. (Optional) Install dependencies if you plan to use the build pipeline.
@@ -75,7 +77,4 @@ The generated `dist/` folder mirrors the extension structure, making it suitable
 ```
 
 ## Acknowledgements
-- Original userscript by [@barretlee](https://github.com/barretlee)
 - Licensed under MIT
-
-Looking for the Chinese documentation? See [README.zh-CN.md](./README.zh-CN.md).

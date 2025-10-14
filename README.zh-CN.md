@@ -1,5 +1,7 @@
 # SpeedMaster Chrome 插件
 
+[English](./README.md)
+
 SpeedMaster 为网页上的音视频元素提供统一的控制面板。项目起源于 Tampermonkey 脚本，如今升级为模块化的 Chrome 扩展，支持主题切换、双语言界面以及面向发布的打包流程。
 
 ## 功能亮点
@@ -13,7 +15,7 @@ SpeedMaster 为网页上的音视频元素提供统一的控制面板。项目�
 ## 安装（开发模式）
 1. 克隆仓库：
    ```bash
-   git clone https://github.com/your-username/speedmaster.git
+   git clone https://github.com/barretlee/speedmaster.git
    cd speedmaster
    ```
 2. （可选）如需启用打包流程，先安装依赖：
@@ -74,8 +76,6 @@ npm run build      # 在 ./dist 生成可发布的扩展
 └── README.zh-CN.md            # 中文说明
 ```
 
-## 致谢
-- 原脚本作者 [@barretlee](https://github.com/barretlee)
-- 项目许可证：MIT
+## LICENSE
 
-英文说明请参阅 [README.md](./README.md)。
+MIT
