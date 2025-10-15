@@ -340,12 +340,17 @@ openOverlayBtn.addEventListener('click', async () => {
   const nextEnabled = !currentState.overlayActive;
   try {
     await handleCommand('speedmaster:set-overlay', { enabled: nextEnabled });
-    if (nextEnabled && currentSettings?.displayMode === 'popup') {
-      currentSettings = await updateSettings({ displayMode: 'both' });
-    }
     if (nextEnabled) {
+      if (currentSettings?.displayMode === 'popup') {
+        currentSettings = await updateSettings({ displayMode: 'both' });
+      }
       setStatus(t('message.success.overlayEnabled'), 'success');
     } else {
+      if (currentSettings?.displayMode !== 'popup') {
+        currentSettings = await updateSettings({ displayMode: 'popup' });
+      } else if (currentSettings) {
+        currentSettings = { ...currentSettings, displayMode: 'popup' };
+      }
       setStatus(t('message.success.overlayDisabled'), 'success');
     }
   } catch (error) {

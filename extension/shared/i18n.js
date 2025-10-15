@@ -146,7 +146,7 @@ const TRANSLATIONS = {
     'options.field.theme': '默认主题',
     'options.field.language': '界面语言',
     'options.field.display.page': '网页浮窗',
-    'options.field.display.popup': '仅弹出页',
+    'options.field.display.popup': '仅弹出层',
     'options.field.display.both': '浮窗 + 弹出页',
     'options.field.theme.dark': '暗色',
     'options.field.theme.light': '明亮',
