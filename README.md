@@ -4,6 +4,9 @@
 
 SpeedMaster delivers a unified, accessible controller for any audio or video element in the browser. The project started as a Tampermonkey userscript and has evolved into a modular Chrome extension with localisation, theming, and a streamlined build pipeline ready for publishing.
 
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/c82d3321-49b7-4374-b47e-e68a41d716e5" />
+
+
 ## Highlights
 - Adjust playback speed from 0.5× up to 15×, with a one-tap **Boost mode** that pushes media to 15× until you restore normal speed.
 - Floating controller on the page or a compact popup panel – switch where it appears by default and toggle the overlay at any time.
