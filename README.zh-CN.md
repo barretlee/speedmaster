@@ -4,6 +4,8 @@
 
 SpeedMaster 为网页上的音视频元素提供统一的控制面板。项目起源于 Tampermonkey 脚本，如今升级为模块化的 Chrome 扩展，支持主题切换、双语言界面以及面向发布的打包流程。
 
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/c82d3321-49b7-4374-b47e-e68a41d716e5" />
+
 ## 功能亮点
 - 倍速范围覆盖 0.5×–15×，一键开启 **超级加速**（15×），再次点击即可恢复常速。
 - 支持网页浮窗与工具栏弹出面板两种形态，可随时切换浮窗显示。

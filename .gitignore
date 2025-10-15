@@ -1,9 +1,12 @@
 node_modules/
 dist
-dist/
 .DS_Store
 *.log
 *.zip
+*.crx
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+test/.reports
+test-results
